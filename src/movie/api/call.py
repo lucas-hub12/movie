@@ -26,5 +26,9 @@ def call_api(dt="20210101", url_param={}):
 def list2df(data: list, dt: str):
     df = pd.DataFrame(data)
     df['dt'] = dt
-    # augmented_data = [{**row, "dt": ymd, "df": "df"} for row in data]
     return df
+
+def save_df(df: pd.DataFrame, base_path) -> str:
+    df.to_parquet(base_path, partition_cols=['dt'])
+    save_path = f"{base_path}/dt={df['dt'][0]}"
+    return save_path
