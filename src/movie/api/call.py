@@ -26,6 +26,10 @@ def call_api(dt="20210101", url_param={}):
 def list2df(data: list, dt: str):
     df = pd.DataFrame(data)
     df['dt'] = dt
+    num_cols = ['rnum', 'rank', 'rankInten', 'salesAmt', 'audiCnt',
+                'audiAcc', 'scrnCnt', 'showCnt', 'salesShare', 'salesInten',
+                'salesChange',   'audiInten', 'audiChange']
+    df[num_cols] = df[num_cols].apply(pd.to_numeric)
     return df
 
 def save_df(df: pd.DataFrame, base_path) -> str:
